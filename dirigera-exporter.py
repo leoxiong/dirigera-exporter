@@ -65,11 +65,18 @@ def metrics():
                     'labels': labels,
                     'value': device['attributes']['currentTemperature']
                 })
-                metrics.append({
-                    'name': 'vindstyrka_voc_index',
-                    'labels': labels,
-                    'value': device['attributes']['vocIndex']
-                })
+                if device['attributes']['productCode'] == 'E2112':
+                    metrics.append({
+                        'name': 'vindstyrka_voc_index',
+                        'labels': labels,
+                        'value': device['attributes']['vocIndex']
+                    })
+                if device['attributes']['productCode'] == 'E2495':
+                    metrics.append({
+                        'name': 'co2_ppm',
+                        'labels': labels,
+                        'value': device['attributes']['currentCO2']
+                    })
             elif device['deviceType'] == 'outlet':
                 metrics.append({
                     'name': 'outlet_state',
@@ -99,6 +106,7 @@ def metrics():
     buffer.append('# TYPE air_pm25 gauge')
     buffer.append('# TYPE air_relative_humidity_percent gauge')
     buffer.append('# TYPE air_temperature_celcius gauge')
+    buffer.append('# TYPE co2_ppm gauge')
     buffer.append('# TYPE outlet_amps gauge')
     buffer.append('# TYPE outlet_joules_total counter')
     buffer.append('# TYPE outlet_state gauge')
