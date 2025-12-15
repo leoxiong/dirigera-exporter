@@ -85,19 +85,24 @@ def metrics():
                 })
                 if device['attributes']['productCode'] == 'E2225':
                     metrics.append({
+                        'name': 'outlet_active_power',
+                        'labels': labels,
+                        'value': device['attributes']['currentActivePower']
+                    })
+                    metrics.append({
                         'name': 'outlet_amps',
                         'labels': labels,
                         'value': device['attributes']['currentAmps']
                     })
                     metrics.append({
-                        'name': 'outlet_kwh',
-                        'labels': labels,
-                        'value': device['attributes']['totalEnergyConsumed']
-                    })
-                    metrics.append({
                         'name': 'outlet_voltage',
                         'labels': labels,
                         'value': device['attributes']['currentVoltage']
+                    })
+                    metrics.append({
+                        'name': 'outlet_kwh',
+                        'labels': labels,
+                        'value': device['attributes']['totalEnergyConsumed']
                     })
         except:
             print(traceback.format_exc(), file=sys.stderr)
@@ -107,8 +112,9 @@ def metrics():
     buffer.append('# TYPE air_relative_humidity_percent gauge')
     buffer.append('# TYPE air_temperature_celcius gauge')
     buffer.append('# TYPE co2_ppm gauge')
+    buffer.append('# TYPE outlet_active_power gauge')
     buffer.append('# TYPE outlet_amps gauge')
-    buffer.append('# TYPE outlet_joules_total counter')
+    buffer.append('# TYPE outlet_kwh counter')
     buffer.append('# TYPE outlet_state gauge')
     buffer.append('# TYPE outlet_voltage gauge')
     buffer.append('# TYPE starkvind_fan_speed gauge')
